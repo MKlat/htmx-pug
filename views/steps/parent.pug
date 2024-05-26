@@ -1,0 +1,28 @@
+include ../mixins/mixInput.pug
+
+- var { parent, childCount } = context;
+
+mixin parentInput(name, label, type="text")
+  +mixInput(name, label, parent, type)
+
+input(name="context", value=context, hidden)
++parentInput("firstName", "Vorname")
++parentInput("lastName", "Nachname")
++parentInput("email", "Email", "email")
++parentInput("phoneNumber", "Telefonnummer")
++parentInput("zipCode", "Postleitzahl")
++parentInput("city", "Wohnort")
++parentInput("street", "Straße")
++parentInput("houseNumber", "Hausnummer")
++parentInput("affiliate", "Kontaktperson")
+label
+  h1 #{ childCount }
+  select.select.select-bordered.flex.w-full(name="childCount")
+    option(value=0, disabled, selected) Kinderanzahl
+    option(selected=childCount == 1) 1
+    option(selected=childCount == 2) 2
+    option(selected=childCount == 3) 3
+    option(selected=childCount == 4) 4
+    option(selected=childCount == 5) 5
+p #{ errors.childCount }
+button.btn(hx-post="/registration/parent/next", hx-target="#swap-target") Weiter

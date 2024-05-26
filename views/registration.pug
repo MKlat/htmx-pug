@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1.text-accent Anmeldung
+  a.btn(href="/") Homepage
+
+  form#swap-target
+    .step(data-index=index)
+      include steps/parent.pug

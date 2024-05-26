@@ -1,0 +1,33 @@
+include ../mixins/mixInput.pug
+
+- var child = context.children[childIndex];
+
+mixin childInput(name, label, type="text")
+  +mixInput(name, label, child, type)
+
+input(name="context", value=context, hidden)
+input(name="childNumber", value=childNumber, hidden) 
+h1 Kind ##{ childIndex }
+
++childInput("firstName", "Vorname")
++childInput("lastName", "Nachname")
++childInput("birthDate", "Geburtsdatum", "date")
+label
+  select.select.select-bordered.flex.w-full(name="gender")
+    option(value="", selected, disabled) Geschlecht
+    option(selected=child.gender == "männlich") männlich
+    option(selected=child.gender == "weiblich") weiblich
+p #{ errors.gender }
++childInput("friend", "Freund")
+label
+  | Zusätzliche Angaben
+  textarea.textarea.textarea-bordered.h-24(name="additionalInformation") #{ child.additionalInformation }
+p #{ errors.additionalInformation }
+button.btn(
+  hx-post=`/registration/child/${childIndex}/prev`,
+  hx-target="#swap-target"
+) Zurück
+button.btn(
+  hx-post=`/registration/child/${childIndex}/next`,
+  hx-target="#swap-target"
+) Weiter

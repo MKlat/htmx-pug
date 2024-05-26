@@ -1,0 +1,4 @@
+input(name="context", value=context, hidden)
+p #{ JSON.stringify(context) }
+button.btn(hx-post="/registration/summary/prev", hx-target="#swap-target") Zurück
+button.btn(hx-post="/registration/summary/next", hx-target="#swap-target") Weiter
