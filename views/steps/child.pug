@@ -1,33 +1,41 @@
 include ../mixins/mixInput.pug
+include ../mixins/stepperButtons.pug
 
 - var child = context.children[childIndex];
 
-mixin childInput(name, label, type="text")
-  +mixInput(name, label, child, type)
+mixin childInput(name, label, description, type="text")
+  +mixInput(name, label, description, child, type)
 
 input(name="context", value=context, hidden)
 input(name="childNumber", value=childNumber, hidden) 
-h1 Kind ##{ childIndex }
+h3 Kind ##{ childIndex }
 
-+childInput("firstName", "Vorname")
-+childInput("lastName", "Nachname")
-+childInput("birthDate", "Geburtsdatum", "date")
-label
-  select.select.select-bordered.flex.w-full(name="gender")
-    option(value="", selected, disabled) Geschlecht
-    option(selected=child.gender == "männlich") männlich
-    option(selected=child.gender == "weiblich") weiblich
-p #{ errors.gender }
-+childInput("friend", "Freund")
-label
-  | Zusätzliche Angaben
-  textarea.textarea.textarea-bordered.h-24(name="additionalInformation") #{ child.additionalInformation }
-p #{ errors.additionalInformation }
-button.btn(
-  hx-post=`/registration/child/${childIndex}/prev`,
-  hx-target="#swap-target"
-) Zurück
-button.btn(
-  hx-post=`/registration/child/${childIndex}/next`,
-  hx-target="#swap-target"
-) Weiter
++childInput("firstName", "Vorname", "Vorname")
++childInput("lastName", "Nachname", "Nachname")
++childInput("birthDate", "Geburtsdatum", "Geburtsdatum", "date")
+
+label.form-control.w-full
+  .label
+    span.label-text Geschlecht
+  select.select.select-bordered(name="sex" class= errors.sex ? "select-accent" : "")
+    option(value="" disabled selected) Geschlecht
+    option(selected=child.sex == "männlich") männlich
+    option(selected=child.sex == "weiblich") weiblich
+  .label
+    span.label-text-alt.text-accent #{ errors.sex }
+
++childInput("friend", "Freund", "Ist ein Freund des Kindes auch auf der Freizeit? Dann würden wir versuchen, sie einer Gruppe zuzuordnen.")
+
+label.form-control
+  .label
+    span.label-text Worauf müssen wir bei diesem Kind besonders achten? 
+      | Geben Sie hier bitte Informationen zu Allergien, Herzfehler, regelmäßigen Medikamenten, Bettnässen und Sonstigem an.
+  textarea.textarea.textarea-bordered.h-24.w-full(
+    placeholder="Zusätzliche Angaben..."
+    name="additionalInformation"
+    class= errors.additionalInformation ? "textarea-accent" : ""
+  ) #{ child.additionalInformation }
+  .label
+    span.label-text-alt.text-accent #{ errors.additionalInformation }
+
++stepperButtons(`/registration/child/${childIndex}/prev`, `/registration/child/${childIndex}/next`)

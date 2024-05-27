@@ -48,7 +48,7 @@ const Child = sequelize.define(
         },
       },
     },
-    gender: {
+    sex: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

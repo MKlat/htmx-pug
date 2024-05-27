@@ -1,5 +1,13 @@
-mixin mixInput(name, label, person, type="text")
-  label.input.input-bordered.flex.items-center.gap-2
-    | #{ label }
-    input.grow(type=type, name=name, value=person[name])
-  p #{ errors[name] }
+mixin mixInput(name, label, description, person, type="text")
+  label.form-control.w-full
+    .label
+      span.label-text #{ description }
+    input.input.input-bordered.w-full(
+      class= errors[name] ? "input-accent" : ""
+      placeholder= label 
+      type= type
+      name= name
+      value= person[name]
+      )
+    .label
+      span.label-text-alt.text-accent #{ errors[name] }

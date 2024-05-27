@@ -1,0 +1,14 @@
+mixin stepperButtons(prev, next, prevLabel="Zurück", nextLabel="Weiter")
+    .grid.grid-cols-2.pt-5.w-full.gap-2
+        if prev
+            button.btn.btn-secondary.text-lg(
+                hx-post= prev
+                hx-target="#swap-target"
+            ) #{ prevLabel } 
+        else
+            div
+        if next
+            button.btn.btn-primary.text-lg(
+                hx-post= next
+                hx-target="#swap-target"
+            ) #{ nextLabel }

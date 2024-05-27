@@ -1,6 +1,12 @@
 extends layout
 
+block head
+
 block content
-  h1.text-accent= title
-  p Welcome to #{ title }
-  a.btn(href="/registration") Daisy Test
+  img.pt-10(src="/images/zeltlager-logo.png")
+  p.text-center.text-xl.text-primary-content.pt-5
+    | Willkommen zur Anmeldung für das Kinderzeltlager 2024
+    | der Freien evangelisch-lutherischen Brüdergemeinde Cloppenburg e.V.
+  
+  a.btn.btn-secondary.w-full.text-xl.my-5(href="/info") Weitere Infos
+  a.btn.btn-primary.w-full.text-xl(href="/registration") Zur Anmeldung

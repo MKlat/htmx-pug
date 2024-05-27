@@ -1,28 +1,34 @@
 include ../mixins/mixInput.pug
+include ../mixins/stepperButtons.pug
 
 - var { parent, childCount } = context;
 
-mixin parentInput(name, label, type="text")
-  +mixInput(name, label, parent, type)
+mixin parentInput(name, label, description, type="text")
+  +mixInput(name, label, description, parent, type)
 
+h3 Angaben zum Erziehungsberechtigten
 input(name="context", value=context, hidden)
-+parentInput("firstName", "Vorname")
-+parentInput("lastName", "Nachname")
-+parentInput("email", "Email", "email")
-+parentInput("phoneNumber", "Telefonnummer")
-+parentInput("zipCode", "Postleitzahl")
-+parentInput("city", "Wohnort")
-+parentInput("street", "Straße")
-+parentInput("houseNumber", "Hausnummer")
-+parentInput("affiliate", "Kontaktperson")
-label
-  h1 #{ childCount }
-  select.select.select-bordered.flex.w-full(name="childCount")
-    option(value=0, disabled, selected) Kinderanzahl
++parentInput("firstName", "Vorname", "Vorname")
++parentInput("lastName", "Nachname", "Nachname")
++parentInput("email", "E-Mail", "E-Mail-Adresse", "email")
++parentInput("phoneNumber", "Telefonnummer", "Über welche Telefonnummer können wir Sie während des Zeltlagers erreichen?")
++parentInput("city", "Wohnort", "Wohnort")
++parentInput("zipCode", "Postleitzahl", "Postleitzahl")
++parentInput("street", "Straße", "Straße")
++parentInput("houseNumber", "Hausnummer", "Hausnummer")
++parentInput("affiliate", "Kontaktperson", "Wenn Sie möchten, können Sie uns die Person mitteilen, die Sie auf das Zeltlager eingeladen hat. Dann haben wir es leichter, Sie zuzuordnen.")
+
+label.form-control.w-full
+  .label
+    span.label-text Wie viele Kinder möchten Sie anmelden?
+  select.select.select-bordered(name="childCount" class= errors.childCount ? "select-accent" : "")
+    option(value=0 disabled selected) Kinderanzahl
     option(selected=childCount == 1) 1
     option(selected=childCount == 2) 2
     option(selected=childCount == 3) 3
     option(selected=childCount == 4) 4
     option(selected=childCount == 5) 5
-p #{ errors.childCount }
-button.btn(hx-post="/registration/parent/next", hx-target="#swap-target") Weiter
+  .label
+    span.label-text-alt.text-accent #{ errors.childCount }
+
++stepperButtons("", "/registration/parent/next")
