@@ -40,19 +40,10 @@ module.exports = async (parent, children) => {
       },
     });
 
-    let html;
-    try {
-      html = fs.readFileSync(
-        path.join(__dirname, "../email/confirmation.html"),
-        "utf8",
-      );
-    } catch (e) {
-      console.log("File reading failed:", e);
-    }
-
-    if (!html) {
-      return;
-    }
+    let html = fs.readFileSync(
+      path.join(__dirname, "../email/confirmation.html"),
+      "utf8",
+    );
 
     html = replacePlaceholders(html, parent, children);
 

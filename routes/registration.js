@@ -1,8 +1,10 @@
 var express = require("express");
 const { Parent, Child } = require("../models");
-const prettifyValidationErrors = require("../utils/prettifyValidationErrors");
+const reduceValidationErrors = require("../utils/reduceValidationErrors");
 const sendMail = require("../utils/sendMail");
 var router = express.Router();
+
+const MAX_CHILD_COUNT = 5;
 
 router.get("/", (req, res, next) => {
   res.render("registration", {
@@ -23,25 +25,22 @@ router.post("/:stepType/:index?/:action", async (req, res, next) => {
       context = {
         ...context,
         parent: parent.toJSON(),
-        childCount: req.body.childCount,
+        childCount: +req.body.childCount,
       };
 
       if (req.params.action === "next") {
-        if (+req.body.childCount < 1 || +req.body.childCount > 5) {
-          errors["childCount"] =
+        if (context.childCount < 1 || context.childCount > MAX_CHILD_COUNT) {
+          errors.childCount =
             "Bitte wählen Sie aus, wie viele Kinder Sie anmelden möchten.";
         }
 
         try {
           await parent.validate();
         } catch (e) {
-          errors = { ...errors, ...prettifyValidationErrors(e.errors) };
-
-          res.render("steps/parent", { context, errors });
-          break;
+          errors = { ...errors, ...reduceValidationErrors(e.errors) };
         }
 
-        if (errors.childCount) {
+        if (Object.keys(errors).length) {
           res.render("steps/parent", { context, errors });
           break;
         }
@@ -54,7 +53,6 @@ router.post("/:stepType/:index?/:action", async (req, res, next) => {
       } else {
         res.render("error");
       }
-
       break;
 
     case "child":
@@ -66,7 +64,7 @@ router.post("/:stepType/:index?/:action", async (req, res, next) => {
         try {
           await child.validate();
         } catch (e) {
-          errors = prettifyValidationErrors(e.errors);
+          errors = reduceValidationErrors(e.errors);
 
           res.render("steps/child", {
             childIndex: req.params.index,
@@ -93,11 +91,23 @@ router.post("/:stepType/:index?/:action", async (req, res, next) => {
       break;
 
     case "summary":
-      context.hasAgreedToPhotos = !!req.body.hasAgreedToPhotos;
-      context.hasAgreedToMedicalTreatment =
-        !!req.body.hasAgreedToMedicalTreatment;
-      context.hasAgreedToPrivacyPolicy = !!req.body.hasAgreedToPrivacyPolicy;
-      context.hasAgreedToRegistration = !!req.body.hasAgreedToRegistration;
+      const agreements = [
+        "Photos",
+        "MedicalTreatment",
+        "PrivacyPolicy",
+        "Registration",
+      ];
+
+      context = {
+        ...context,
+        ...agreements.reduce(
+          (acc, curr) => ({
+            ...acc,
+            ["hasAgreedTo" + curr]: !!req.body["hasAgreedTo" + curr],
+          }),
+          {},
+        ),
+      };
 
       if (req.params.action === "prev") {
         res.render("steps/child", {
@@ -106,24 +116,24 @@ router.post("/:stepType/:index?/:action", async (req, res, next) => {
           errors,
         });
       } else {
-        errors.hasAgreedToPhotos = !req.body.hasAgreedToPhotos;
-        errors.hasAgreedToMedicalTreatment =
-          !req.body.hasAgreedToMedicalTreatment;
-        errors.hasAgreedToPrivacyPolicy = !req.body.hasAgreedToPrivacyPolicy;
-        errors.hasAgreedToRegistration = !req.body.hasAgreedToRegistration;
+        errors = agreements.reduce(
+          (acc, curr) =>
+            req.body["hasAgreedTo" + curr]
+              ? acc
+              : {
+                  ...acc,
+                  ["hasAgreedTo" + curr]: true,
+                },
+          {},
+        );
 
-        if (
-          errors.hasAgreedToPhotos ||
-          errors.hasAgreedToMedicalTreatment ||
-          errors.hasAgreedToPrivacyPolicy ||
-          errors.hasAgreedToRegistration
-        ) {
+        if (Object.keys(errors).length) {
           res.render("steps/summary", { context, errors });
           break;
         }
 
         try {
-          const dataChildren = await Promise.all(
+          const children = await Promise.all(
             context.children
               .slice(1, +context.childCount + 1)
               .map((child) => Child.create(child)),
@@ -131,7 +141,7 @@ router.post("/:stepType/:index?/:action", async (req, res, next) => {
 
           const parent = await Parent.create(context.parent);
 
-          await parent.addChildren(dataChildren);
+          await parent.addChildren(children);
         } catch (e) {
           res.render("steps/error");
           break;
@@ -140,7 +150,7 @@ router.post("/:stepType/:index?/:action", async (req, res, next) => {
         sendMail(
           context.parent,
           context.children.slice(1, +context.childCount + 1),
-        ).catch((reason) => console.log("Send Mail failed:", reason));
+        );
 
         res.render("steps/success");
         break;
