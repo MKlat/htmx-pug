@@ -1,0 +1,41 @@
+<mjml>
+  <mj-head>
+    <mj-preview>Informationen zum Zeltlager</mj-preview>
+    <mj-title>Anmeldebestätigung Zeltlager</mj-title>
+  </mj-head>
+  <mj-body background-color="#202022">
+    <mj-section>
+      <mj-column>
+        <mj-image width="100px" src="cid:zeltlager-logo"></mj-image>
+
+        <mj-divider border-color="#6BB187"></mj-divider>
+
+        <mj-text font-size="20px" color="#6BB187"> Guten Tag #Name#, </mj-text>
+        <mj-text font-size="16px" line-height="1.5" color="#DDDDDD">
+          hiermit bestätigen wir Ihnen die Anmeldung #Kinder# zum Zeltlager 2024
+          der Freien evangelisch-lutherischen Brüdergemeinde e.V.
+        </mj-text>
+        <mj-text font-size="16px" line-height="1.5" color="#DDDDDD">
+          Im Anhang finden Sie ein Infoblatt, das wichtige Informationen zur
+          Freizeit enthält.
+        </mj-text>
+        <mj-text font-size="16px" line-height="1.5" color="#DDDDDD">
+          Gottes Segen wünscht Ihnen<br />
+          das Zeltlager Team!
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column background-color="#191919" height="100px">
+        <mj-text font-size="14px" line-height="1.5" color="#BBBBBB">
+          Freie evangelisch-lutherische Brüdergemeinde Cloppenburg e.V.<br />
+          Löninger Straße 19<br />
+          49661 Cloppenburg
+        </mj-text>
+        <mj-text font-size="14px" line-height="1.5" color="#BBBBBB">
+          info@felb-cloppenburg.de
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

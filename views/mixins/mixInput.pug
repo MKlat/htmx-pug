@@ -3,11 +3,11 @@ mixin mixInput(name, label, description, person, type="text")
     .label
       span.label-text #{ description }
     input.input.input-bordered.w-full(
-      class= errors[name] ? "input-accent" : ""
-      placeholder= label 
-      type= type
-      name= name
-      value= person[name]
-      )
+      class=errors[name] ? "input-accent" : "",
+      placeholder=label,
+      type=type,
+      name=name,
+      value=person[name]
+    )
     .label
       span.label-text-alt.text-accent #{ errors[name] }

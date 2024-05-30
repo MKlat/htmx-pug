@@ -39,11 +39,11 @@ const Child = sequelize.define(
           msg: "Das ist kein gültiges Datum.",
         },
         isBefore: {
-          args: "2018-01-01",
+          args: "2017-07-19",
           msg: "Das Kind ist zu jung.",
         },
         isAfter: {
-          args: "2010-01-01",
+          args: "2010-07-18",
           msg: "Das Kind ist zu alt.",
         },
       },

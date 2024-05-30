@@ -1,84 +1,104 @@
 include ../mixins/stepperButtons.pug
 
-- var { parent, children } = context
+- var { parent, children } = context;
 
 input(name="context", value=context, hidden)
-h3 Überprüfen der Daten 
+h3 Überprüfen der Daten
 
 .w-full.bg-base-300.shadow-xl.p-4.mb-4
-    h2.card-title Erziehungsberechtigter
-    p  
-        | #{ parent.firstName } #{ parent.lastName }
-        br
-        | #{ parent.street } #{ parent.houseNumber }
-        br
-        | #{ parent.zipCode } #{ parent.city }
-    p 
-        | Telefon: #{ parent.phoneNumber }
-        br
-        | E-Mail: #{ parent.email }
-    if parent.affiliate 
-        p 
-            | Sie wurden eingeladen von:
-            br
-            | #{ parent.affiliate }
+  h2.card-title Erziehungsberechtigter
+  p
+    | #{ parent.firstName } #{ parent.lastName }
+    br
+    | #{ parent.street } #{ parent.houseNumber }
+    br
+    | #{ parent.zipCode } #{ parent.city }
+  p
+    | Telefon: #{ parent.phoneNumber }
+    br
+    | E-Mail: #{ parent.email }
+  if parent.affiliate
+    p
+      | Sie wurden eingeladen von:
+      br
+      | #{ parent.affiliate }
 
 - for (var i = 1; i <= +context.childCount; i++)
-    - var birthDate = (new Date(children[i].birthDate).toLocaleDateString("de-DE"))
-    .w-full.bg-base-300.shadow-xl.p-4.mb-4
-        h2.card-title Kind ##{ i }
-        p  
-            | #{ children[i].firstName } #{ children[i].lastName }
-            br
-            | Geschlecht: #{ children[i].sex }
-            br
-            | geboren am: #{ birthDate }
-        if children[i].friend
-            p Freund: #{ children[i].friend }
-        if children[i].additionalInformation 
-            p 
-                | Zusätzliche Angaben:
-                br
-                | #{ children[i].additionalInformation }
+  - var birthDate = new Date(children[i].birthDate).toLocaleDateString("de-DE");
+  .w-full.bg-base-300.shadow-xl.p-4.mb-4
+    h2.card-title Kind ##{ i }
+    p
+      | #{ children[i].firstName } #{ children[i].lastName }
+      br
+      | Geschlecht: #{ children[i].sex }
+      br
+      | geboren am: #{ birthDate }
+    if children[i].friend
+      p Freund: #{ children[i].friend }
+    if children[i].additionalInformation
+      p
+        | Zusätzliche Angaben:
+        br
+        | #{ children[i].additionalInformation }
 
 .form-control
-    label.label.cursor-pointer
-        input.checkbox.checkbox-sm.mr-2(
-            name="hasAgreedToPhotos"
-            type="checkbox"
-            class= errors.hasAgreedToPhotos ? "checkbox-accent" : ""
-            checked= context.hasAgreedToPhotos
-        )
-        span.label-text.text-base
-            | Ich bin damit einverstanden, dass die Veranstalter und Besucher Fotos von dem
-            |  Kind bzw. den Kindern machen. Diese Fotos werden unter Umständen veröffentlicht.
+  label.label.cursor-pointer
+    input.checkbox.checkbox-sm.mr-2(
+      name="hasAgreedToPhotos",
+      type="checkbox",
+      class=errors.hasAgreedToPhotos ? "checkbox-accent" : "",
+      checked=context.hasAgreedToPhotos
+    )
+    span.label-text.text-base
+      | Ich bin damit einverstanden, dass die Veranstalter und Besucher Fotos und Videos von dem
+      |
+      | Kind bzw. den Kindern machen. Diese Fotos werden unter Umständen veröffentlicht.
 
-    label.label.cursor-pointer
-        input.checkbox.checkbox-sm.mr-2(
-            name="hasAgreedToMedicalTreatment"
-            type="checkbox"
-            class= errors.hasAgreedToMedicalTreatment ? "checkbox-accent" : ""
-            checked= context.hasAgreedToMedicalTreatment
-        )
-        span.label-text.text-base
-            | Ich stimme der Behandlung von kleineren Verletzungen wie z.B. Sonnenbrand,
-            |  Insektenstiche, Schürfwunden und Prellungen durch Salben, Wunddesinfektion und Verbänden zu.
-            |  Ebenso dem Entfernen von Splittern und Zecken. Sollte durch Krankheit oder Unfall eine
-            |  ärztliche Behandlung oder Krankenhauseinweisung erforderlich sein, ist der Veranstalter
-            |  bevollmächtigt, allen ärztlicherseits erforderlichen Sofortmaßnahmen auch ohne
-            |  vorherige Befragung der Erziehungsberechtigten zuzustimmen.
+  label.label.cursor-pointer
+    input.checkbox.checkbox-sm.mr-2(
+      name="hasAgreedToMedicalTreatment",
+      type="checkbox",
+      class=errors.hasAgreedToMedicalTreatment ? "checkbox-accent" : "",
+      checked=context.hasAgreedToMedicalTreatment
+    )
+    span.label-text.text-base
+      | Ich stimme der Behandlung von kleineren Verletzungen wie z.B. Sonnenbrand,
+      |
+      | Insektenstiche, Schürfwunden und Prellungen durch Salben, Wunddesinfektion und Verbänden zu.
+      |
+      | Ebenso dem Entfernen von Splittern und Zecken. Sollte durch Krankheit oder Unfall eine
+      |
+      | ärztliche Behandlung oder Krankenhauseinweisung erforderlich sein, ist der Veranstalter
+      |
+      | bevollmächtigt, allen ärztlicherseits erforderlichen Sofortmaßnahmen auch ohne
+      |
+      | vorherige Befragung der Erziehungsberechtigten zuzustimmen.
 
-    label.label.cursor-pointer
-        input.checkbox.checkbox-sm.mr-2(
-            name="hasAgreedToRegistration"
-            type="checkbox"
-            class= errors.hasAgreedToRegistration ? "checkbox-accent" : ""
-            checked= context.hasAgreedToRegistration
-        )
-        span.label-text.text-base
-            | Ich habe meine Eingaben überprüft. Ich bin erziehungsberechtigt und bestätige hiermit die Anmeldung.
+  label.label.cursor-pointer
+    input.checkbox.checkbox-sm.mr-2(
+      name="hasAgreedToPrivacyPolicy",
+      type="checkbox",
+      class=errors.hasAgreedToPrivacyPolicy ? "checkbox-accent" : "",
+      checked=context.hasAgreedToPrivacyPolicy
+    )
+    span.label-text.text-base
+      | Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten für die nötige Abwicklung
+      |
+      | des Zeltlagers erhoben, gespeichert und verarbeitet werden und ich auch über meine E-Mail bezüglich
+      |
+      | des Zeltlagers kontaktiert werden darf. Die Daten werden einen Monat nach dem Zeltlager gelöscht.
 
-    if errors.hasAgreedToPhotos || errors.hasAgreedToMedicalTreatment || errors.hasAgreedToRegistration 
-        span.text-accent Sie müssen allen Aussagen zustimmen, um die Anmeldung abzuschließen.
+  label.label.cursor-pointer
+    input.checkbox.checkbox-sm.mr-2(
+      name="hasAgreedToRegistration",
+      type="checkbox",
+      class=errors.hasAgreedToRegistration ? "checkbox-accent" : "",
+      checked=context.hasAgreedToRegistration
+    )
+    span.label-text.text-base
+      | Ich habe meine Eingaben überprüft. Ich bin erziehungsberechtigt und bestätige hiermit die Anmeldung.
+
+  if errors.hasAgreedToPhotos || errors.hasAgreedToMedicalTreatment || errors.hasAgreedToRegistration
+    span.text-accent Sie müssen allen Aussagen zustimmen, um die Anmeldung abzuschließen.
 
 +stepperButtons("/registration/summary/prev", "/registration/summary/next", "Zurück", "Anmelden")

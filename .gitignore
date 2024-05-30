@@ -1,3 +1,4 @@
 node_modules
 *.sqlite
 public/stylesheets/style.css
+*.pdf

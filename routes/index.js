@@ -6,11 +6,11 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/info", (req, res, next) => {
-  res.render("info", { title: "Informationen"});
+  res.render("info", { title: "Informationen" });
 });
 
 router.get("/impressum", (req, res, next) => {
-  res.render("impressum", { title: "Impressum"});
+  res.render("impressum", { title: "Impressum" });
 });
 
 module.exports = router;

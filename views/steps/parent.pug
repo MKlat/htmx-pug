@@ -21,8 +21,11 @@ input(name="context", value=context, hidden)
 label.form-control.w-full
   .label
     span.label-text Wie viele Kinder möchten Sie anmelden?
-  select.select.select-bordered(name="childCount" class= errors.childCount ? "select-accent" : "")
-    option(value=0 disabled selected) Kinderanzahl
+  select.select.select-bordered(
+    name="childCount",
+    class=errors.childCount ? "select-accent" : ""
+  )
+    option(value=0, disabled, selected) Kinderanzahl
     option(selected=childCount == 1) 1
     option(selected=childCount == 2) 2
     option(selected=childCount == 3) 3

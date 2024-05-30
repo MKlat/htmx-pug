@@ -17,8 +17,8 @@ h3 Kind ##{ childIndex }
 label.form-control.w-full
   .label
     span.label-text Geschlecht
-  select.select.select-bordered(name="sex" class= errors.sex ? "select-accent" : "")
-    option(value="" disabled selected) Geschlecht
+  select.select.select-bordered(name="sex", class=errors.sex ? "select-accent" : "")
+    option(value="", disabled, selected) Geschlecht
     option(selected=child.sex == "männlich") männlich
     option(selected=child.sex == "weiblich") weiblich
   .label
@@ -28,12 +28,13 @@ label.form-control.w-full
 
 label.form-control
   .label
-    span.label-text Worauf müssen wir bei diesem Kind besonders achten? 
+    span.label-text Worauf müssen wir bei diesem Kind besonders achten?
+      |
       | Geben Sie hier bitte Informationen zu Allergien, Herzfehler, regelmäßigen Medikamenten, Bettnässen und Sonstigem an.
   textarea.textarea.textarea-bordered.h-24.w-full(
-    placeholder="Zusätzliche Angaben..."
-    name="additionalInformation"
-    class= errors.additionalInformation ? "textarea-accent" : ""
+    placeholder="Zusätzliche Angaben...",
+    name="additionalInformation",
+    class=errors.additionalInformation ? "textarea-accent" : ""
   ) #{ child.additionalInformation }
   .label
     span.label-text-alt.text-accent #{ errors.additionalInformation }

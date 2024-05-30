@@ -1,16 +1,33 @@
 doctype html
-html(data-theme="business" lang="de")
+html(data-theme="business", lang="de")
   head
     meta(charset="utf-8")
-    meta(content="width=device-width, initial-scale=1" name="viewport")
-    meta(content="Anmeldung Kinderzeltlager FELB Cloppenburg" name="description")
-    meta(content="Zeltlager FELB Cloppenburg" property="og:title")
-    meta(content="Anmeldeseite für das Zeltlager der FELB Cloppenburg" property="og:description")
-    meta(content="https://kinderzeltlager.felb-cloppenburg.de/images/ogImage.png" property="og:image")
-    meta(content="https://kinderzeltlager.felb-cloppenburg.de" property="og:url")
-    meta(content="Zeltlager FELB Cloppenburg" property="og:site_name")
+    meta(content="width=device-width, initial-scale=1", name="viewport")
+    meta(
+      content="Anmeldung Kinderzeltlager FELB Cloppenburg",
+      name="description"
+    )
+    meta(content="Zeltlager FELB Cloppenburg", property="og:title")
+    meta(
+      content="Anmeldeseite für das Zeltlager der FELB Cloppenburg",
+      property="og:description"
+    )
+    meta(
+      content="https://kinderzeltlager.felb-cloppenburg.de/images/ogImage.png",
+      property="og:image"
+    )
+    meta(
+      content="https://kinderzeltlager.felb-cloppenburg.de",
+      property="og:url"
+    )
+    meta(content="Zeltlager FELB Cloppenburg", property="og:site_name")
     title= title
-    link(href="/favicon.svg" type="image/svg+xml" rel="icon")
+
+    link(sizes="32x32", href="/favicon.ico", rel="icon")
+    link(type="image/svg+xml", href="/icon.svg", rel="icon")
+    link(href="/apple-touch-icon.png", rel="apple-touch-icon")
+    link(href="/manifest.webmanifest", rel="manifest")
+
     link(rel="stylesheet", href="/stylesheets/style.css")
     script(src="/javascripts/htmx.min.js")
   body.overflow-x-hidden.bg-base-100
@@ -23,5 +40,4 @@ html(data-theme="business" lang="de")
       .grow.my-5
         block content
       .text-center.my-5.shrink-0
-        a.underline(href="/impressum") Impressum
-    
+        a.underline(href="/impressum") Datenschutz & Impressum
