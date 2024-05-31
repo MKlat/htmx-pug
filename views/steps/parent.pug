@@ -16,14 +16,14 @@ input(name="context", value=context, hidden)
 +parentInput("zipCode", "Postleitzahl", "Postleitzahl")
 +parentInput("street", "Straße", "Straße")
 +parentInput("houseNumber", "Hausnummer", "Hausnummer")
-+parentInput("affiliate", "Kontaktperson", "Wenn Sie möchten, können Sie uns die Person mitteilen, die Sie auf das Zeltlager eingeladen hat. Dann haben wir es leichter, Sie zuzuordnen.")
++parentInput("affiliate", "Kontaktperson", "Wenn Sie möchten, können Sie uns die Person mitteilen, von der Ihr Kind auf das Zeltlager eingeladen wurde. Dann haben wir es leichter, Sie zuzuordnen.")
 
 label.form-control.w-full
   .label
     span.label-text Wie viele Kinder möchten Sie anmelden?
   select.select.select-bordered(
     name="childCount",
-    class=errors.childCount ? "select-accent" : ""
+    class=errors.childCount ? "select-accent scroll-target" : ""
   )
     option(value=0, disabled, selected) Kinderanzahl
     option(selected=childCount == 1) 1

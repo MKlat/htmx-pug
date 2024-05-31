@@ -17,7 +17,10 @@ h3 Kind ##{ childIndex }
 label.form-control.w-full
   .label
     span.label-text Geschlecht
-  select.select.select-bordered(name="sex", class=errors.sex ? "select-accent" : "")
+  select.select.select-bordered(
+    name="sex",
+    class=errors.sex ? "select-accent scroll-target" : ""
+  )
     option(value="", disabled, selected) Geschlecht
     option(selected=child.sex == "männlich") männlich
     option(selected=child.sex == "weiblich") weiblich
@@ -34,7 +37,7 @@ label.form-control
   textarea.textarea.textarea-bordered.h-24.w-full(
     placeholder="Zusätzliche Angaben...",
     name="additionalInformation",
-    class=errors.additionalInformation ? "textarea-accent" : ""
+    class=errors.additionalInformation ? "textarea-accent scroll-target" : ""
   ) #{ child.additionalInformation }
   .label
     span.label-text-alt.text-accent #{ errors.additionalInformation }

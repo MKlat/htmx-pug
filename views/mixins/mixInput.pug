@@ -3,7 +3,7 @@ mixin mixInput(name, label, description, person, type="text")
     .label
       span.label-text #{ description }
     input.input.input-bordered.w-full(
-      class=errors[name] ? "input-accent" : "",
+      class=errors[name] ? "input-accent scroll-target" : "",
       placeholder=label,
       type=type,
       name=name,

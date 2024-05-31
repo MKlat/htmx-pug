@@ -4,7 +4,7 @@ mixin stepperButtons(prev, next, prevLabel="Zurück", nextLabel="Weiter")
       button.btn.btn-primary.text-lg.order-last(
         hx-post=next,
         hx-target="#swap-target",
-        hx-swap="innerHTML show:top"
+        hx-swap="innerHTML show:.scroll-target:top"
       ) #{ nextLabel }
     else
       .order-last
